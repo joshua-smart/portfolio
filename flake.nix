@@ -32,10 +32,33 @@
           };
         };
 
+        styles = pkgs.stdenv.mkDerivation {
+          pname = "portfolio-styles";
+          version = "0.1.0";
+          src = ./.;
+          buildInputs = with pkgs; [ tailwindcss ];
+          buildPhase = ''
+            tailwindcss -i ./templates/input.css -o main.css -m
+          '';
+          installPhase = ''
+            mkdir -p $out/assets/css/
+            mv main.css $out/assets/css/
+          '';
+        };
+
+        app = pkgs.lib.fileset.toSource {
+          root = ./.;
+          fileset = ./assets;
+        };
+
         dockerImage = pkgs.dockerTools.buildImage {
           name = "portfolio";
           tag = "dev";
-          copyToRoot = [ bin ];
+          copyToRoot = pkgs.buildEnv {
+            name = "portfolio";
+            paths = [ bin app styles ];
+            pathsToLink = [ "/bin" "/assets" ];
+          };
           config = { Cmd = [ "${bin}/bin/portfolio" ]; };
         };
       in {
