@@ -1,0 +1,27 @@
+{% let fakeLineClasses = "fake-line bg-zinc-700 opacity-50 h-[1em] rounded" %}
+
+<script src="assets/js/hero.js"></script>
+<div id="hero" class="font-mono p-4 flex flex-col gap-1 py-6 bg-zinc-800">
+  {% for (t, w) in [(0, 10), (2, 12)] %}
+  <div class="{{ fakeLineClasses }}" style="width: 0; margin-left: {{t}}ch;" data-length="{{w}}"></div>
+  {% endfor %}
+
+  <a href="/">
+    <div style="font-size: 2em;" class="ml-[2ch] leading-none mt-1">Joshua</div>
+    <div style="font-size: 2em;" class="ml-[4ch] leading-none mb-1">Smart</div>
+  </a>
+
+  <div class="{{ fakeLineClasses }}" style="width: 0; margin-left: 6ch;" data-length="7"></div>
+
+  <div class="text-zinc-400" style="margin-left: 4ch;">Personal Portfolio</div>
+
+  {% for (t, w) in [(2, 6), (0, 10)] %}
+  <div class="{{ fakeLineClasses }}" style="width: 0; margin-left: {{t}}ch;" data-length="{{w}}"></div>
+  {% endfor %}
+
+  <nav class="flex justify-around">
+    {% for l in ["projects", "contact", "cv"] %}
+    <a href="#{{ l }}" class="underline">{{ l }}</a>
+    {% endfor %}
+  </nav>
+</div>

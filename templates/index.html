@@ -3,5 +3,11 @@
 {% block title %} Portfolio {% endblock %}
 
 {% block content %}
-<div class="bg-red-500">Hello, world! a</div>
+<main class="flex flex-col bg-zinc-900 dark:text-white h-screen">
+  {% include "components/hero.html" %}
+  <div class="flex-1">
+    {% include "components/projects.html" %}
+  </div>
+</main>
+
 {% endblock %}
