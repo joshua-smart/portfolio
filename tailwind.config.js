@@ -5,7 +5,13 @@ module.exports = {
     "./assets/js/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        blue: {
+          theme: '#61afef',
+        }
+      },
+    },
     fontFamily: {
       'mono': ['Fira Code'],
     },

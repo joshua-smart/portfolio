@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  hr {
+    @apply bg-gradient-to-r from-transparent via-zinc-500 to-transparent border-none h-[1px];
+  }
+}
+
+@layer utilites {
+  .bg-dot-grid {
+    background-size: 20px 20px;
+    background-image: radial-gradient(circle, #444 1px, rgba(0, 0, 0, 0) 1px);
+  }
+
+  .bg-grid {
+    background-size: 20px 20px;
+    background-image:
+      linear-gradient(to right, #444 1px, transparent 1px),
+      linear-gradient(to bottom, #444 1px, transparent 1px);
+  }
+}

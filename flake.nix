@@ -34,7 +34,6 @@
 
         styles = pkgs.stdenv.mkDerivation {
           pname = "portfolio-styles";
-          version = "0.1.0";
           src = ./.;
           buildInputs = with pkgs; [ tailwindcss ];
           buildPhase = ''
@@ -72,6 +71,8 @@
             tailwindcss-language-server
             nodePackages.typescript-language-server
             taplo
+            sqlx-cli
+            sqlite
             (pkgs.writeShellScriptBin "tailwindcss" ''
               ${pkgs.tailwindcss}/bin/tailwindcss --input templates/input.css --output assets/css/main.css "$@"
             '')
