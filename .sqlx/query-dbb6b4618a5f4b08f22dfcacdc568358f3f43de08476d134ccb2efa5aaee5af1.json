@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT name FROM projects",
+  "describe": {
+    "columns": [
+      {
+        "name": "name",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "dbb6b4618a5f4b08f22dfcacdc568358f3f43de08476d134ccb2efa5aaee5af1"
+}

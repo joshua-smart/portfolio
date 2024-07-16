@@ -14,21 +14,32 @@
     };
   };
 
-  outputs = { nixpkgs, flake-utils, rust-overlay, crane, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      nixpkgs,
+      flake-utils,
+      rust-overlay,
+      crane,
+      ...
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs { inherit system overlays; };
 
         craneLib = crane.mkLib pkgs;
 
+        lib = nixpkgs.lib;
+
         bin = craneLib.buildPackage {
           src = pkgs.lib.cleanSourceWith {
             src = ./.;
-            filter = path: type:
-              (builtins.match "^templates/.*" != null)
+            filter =
+              path: type:
+              (lib.path.hasPrefix ./templates (/. + path))
+              || (lib.path.hasPrefix ./.sqlx (/. + path))
               || (craneLib.filterCargoSources path type);
-            name = "source";
           };
         };
 
@@ -55,12 +66,22 @@
           tag = "dev";
           copyToRoot = pkgs.buildEnv {
             name = "portfolio";
-            paths = [ bin app styles ];
-            pathsToLink = [ "/bin" "/assets" ];
+            paths = [
+              bin
+              app
+              styles
+            ];
+            pathsToLink = [
+              "/bin"
+              "/assets"
+            ];
           };
-          config = { Cmd = [ "${bin}/bin/portfolio" ]; };
+          config = {
+            Cmd = [ "${bin}/bin/portfolio" ];
+          };
         };
-      in {
+      in
+      {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             rust-bin.stable.latest.default
@@ -83,5 +104,6 @@
           inherit bin dockerImage;
           default = bin;
         };
-      });
+      }
+    );
 }
