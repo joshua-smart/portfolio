@@ -19,14 +19,20 @@ struct AppState {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let args = Args::parse();
+    let Args {
+        log_level,
+        database_url,
+        asset_dir,
+        port,
+        address,
+    } = Args::parse();
 
     tracing_subscriber::fmt()
-        .with_max_level(args.log_level)
+        .with_max_level(log_level)
         .compact()
         .init();
 
-    let pool = SqlitePool::connect(&args.database_url).await?;
+    let pool = SqlitePool::connect(&database_url).await?;
     migrate!().run(&pool).await?;
 
     let state = AppState { db: pool };
@@ -35,14 +41,11 @@ async fn main() -> Result<()> {
         .route("/", get(index::get))
         .nest("/partials", partials::router())
         .with_state(state)
-        .nest_service("/assets", ServeDir::new(args.asset_dir))
+        .nest_service("/assets", ServeDir::new(asset_dir)) // Serve static assets
         .layer(TraceLayer::new_for_http());
 
-    let address = "0.0.0.0";
-    let port = 3000;
-
-    let listener = TcpListener::bind((address, port)).await?;
-    info!("Starting server on `{address}:{port}`");
+    let listener = TcpListener::bind((address.as_str(), port)).await?;
+    info!(address, port, "Starting server");
     axum::serve(listener, app).await?;
 
     Ok(())

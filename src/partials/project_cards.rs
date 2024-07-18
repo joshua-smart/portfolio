@@ -1,19 +1,21 @@
 use askama::Template;
 use askama_axum::IntoResponse;
-use axum::extract::State;
+use axum::{extract::State, http::StatusCode};
 use sqlx::query_as;
+use tracing::error;
 
 use crate::AppState;
 
-pub async fn get(State(state): State<AppState>) -> impl IntoResponse {
+pub async fn get(State(state): State<AppState>) -> Result<impl IntoResponse, StatusCode> {
     let db = state.db;
 
-    let Ok(projects) = query_as!(Project, r"SELECT name FROM projects")
+    let projects = query_as!(Project, r"SELECT * FROM projects")
         .fetch_all(&db)
         .await
-    else {
-        return Err("Oops".to_string());
-    };
+        .map_err(|e| {
+            error!(info = ?e, "Error retrieving projects from database");
+            StatusCode::INTERNAL_SERVER_ERROR
+        })?;
 
     Ok(ProjectCardsTemplate { projects })
 }
