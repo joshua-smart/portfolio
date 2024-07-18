@@ -7,7 +7,12 @@ pub struct Args {
     #[arg(env, long, default_value = "INFO")]
     pub log_level: Level,
 
-    #[arg(env, long, default_value = "assets/")]
+    #[arg(
+        env,
+        long,
+        default_value = "assets/",
+        help = "Directory to serve static assets from"
+    )]
     pub asset_dir: PathBuf,
 
     #[arg(env, long, short = 'd', default_value = "sqlite::memory:")]

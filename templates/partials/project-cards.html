@@ -1,5 +1,5 @@
-<div class="flex">
+<div class="flex p-2 gap-2 overflow-x-auto">
   {% for Project { name } in projects %}
-  {{ name }}
+  {% include "components/project-card.html" %}
   {% endfor %}
 </div>

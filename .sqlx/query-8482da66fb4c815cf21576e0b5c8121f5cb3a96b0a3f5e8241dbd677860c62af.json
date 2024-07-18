@@ -1,6 +1,6 @@
 {
   "db_name": "SQLite",
-  "query": "SELECT name FROM projects",
+  "query": "SELECT * FROM projects",
   "describe": {
     "columns": [
       {
@@ -16,5 +16,5 @@
       false
     ]
   },
-  "hash": "dbb6b4618a5f4b08f22dfcacdc568358f3f43de08476d134ccb2efa5aaee5af1"
+  "hash": "8482da66fb4c815cf21576e0b5c8121f5cb3a96b0a3f5e8241dbd677860c62af"
 }
