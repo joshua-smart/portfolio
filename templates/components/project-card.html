@@ -1,3 +1,14 @@
 <div class="p-2 bg-zinc-800 rounded size-60 flex-none">
-  <div class="font-mono">{{ name }}</div>
+  <div class="font-mono">
+    <span class="text-zinc-500">#{{ id }}</span>
+    <span class="font-semibold">{{ name }}</span>
+  </div>
+  [
+  {% for tool in tools %}
+  {% match tool %}
+  {% when Rust %}
+  <i class="nf nf-dev-rust"></i>
+  {% endmatch%}
+  {% endfor %}
+  ]
 </div>
