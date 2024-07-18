@@ -1,5 +1,7 @@
 <div class="flex p-2 gap-2 overflow-x-auto">
   {% for Project { name } in projects %}
+<div class="flex p-2 gap-2 overflow-x-auto" data-h-scroll>
+  <script src="assets/js/horizontalScroll.js"></script>
   {% include "components/project-card.html" %}
   {% endfor %}
 </div>
