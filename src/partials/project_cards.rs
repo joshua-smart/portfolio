@@ -11,30 +11,32 @@ pub async fn get(State(state): State<AppState>) -> Result<impl IntoResponse, Sta
     let db = state.db;
 
     let get_tools = {
-        let db = db.clone();
-        |id: u32| async move {
-            query_as!(Tool, r#"
-            SELECT tools.name, tools.link 
-            FROM projects, tools, project_tools 
-            WHERE projects.id = project_tools.project_id AND tools.id = project_tools.tool_id AND projects.id = ?"#,
-            id)
-            .fetch_all(&db).await
+        let db = &db;
+        move |id: u32| async move {
+            query_as!(
+                Tool,
+                r#"SELECT tools.name, tools.link 
+                FROM projects 
+                INNER JOIN project_tools ON projects.id = project_tools.project_id
+                INNER JOIN tools ON project_tools.tool_id = tools.id
+                WHERE projects.id = ?"#,
+                id
+            )
+            .fetch_all(db)
+            .await
         }
     };
 
     let projects: Vec<_> = query!(r#"SELECT id as "id: u32", name FROM projects"#)
         .fetch(&db)
-        .and_then(|r| {
-            let get_tools = get_tools.clone();
-            async move {
-                let tools = get_tools(r.id).await?;
+        .and_then(|r| async move {
+            let tools = get_tools(r.id).await?;
 
-                Ok(Project {
-                    id: r.id,
-                    name: r.name,
-                    tools,
-                })
-            }
+            Ok(Project {
+                id: r.id,
+                name: r.name,
+                tools,
+            })
         })
         .try_collect()
         .await

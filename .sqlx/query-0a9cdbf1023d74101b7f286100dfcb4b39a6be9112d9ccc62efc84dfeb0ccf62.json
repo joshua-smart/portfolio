@@ -1,0 +1,26 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT tools.name, tools.link \n                FROM projects \n                INNER JOIN project_tools ON projects.id = project_tools.project_id\n                INNER JOIN tools ON project_tools.tool_id = tools.id\n                WHERE projects.id = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "name",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "link",
+        "ordinal": 1,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "0a9cdbf1023d74101b7f286100dfcb4b39a6be9112d9ccc62efc84dfeb0ccf62"
+}
