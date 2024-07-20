@@ -1,4 +1,4 @@
-<div class="flex p-2 gap-2 overflow-x-auto" data-h-scroll>
+<div class="flex gap-2 overflow-x-auto snap-x snap-mandatory" data-h-scroll>
   <script src="assets/js/horizontalScroll.js"></script>
   {% for Project { id, name, tools } in projects %}
   {% include "components/project-card.html" %}

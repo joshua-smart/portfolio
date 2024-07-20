@@ -2,7 +2,7 @@ use askama::Template;
 use askama_axum::IntoResponse;
 use axum::{extract::State, http::StatusCode};
 use futures::TryStreamExt;
-use sqlx::{query, query_scalar};
+use sqlx::{query, query_as};
 use tracing::error;
 
 use crate::AppState;
@@ -13,8 +13,8 @@ pub async fn get(State(state): State<AppState>) -> Result<impl IntoResponse, Sta
     let get_tools = {
         let db = db.clone();
         |id: u32| async move {
-            query_scalar!(r#"
-            SELECT tools.name as "tool: Tool" 
+            query_as!(Tool, r#"
+            SELECT tools.name, tools.link 
             FROM projects, tools, project_tools 
             WHERE projects.id = project_tools.project_id AND tools.id = project_tools.tool_id AND projects.id = ?"#,
             id)
@@ -46,15 +46,17 @@ pub async fn get(State(state): State<AppState>) -> Result<impl IntoResponse, Sta
     Ok(ProjectCardsTemplate { projects })
 }
 
+#[derive(Debug)]
 struct Project {
     id: u32,
     name: String,
     tools: Vec<Tool>,
 }
 
-#[derive(sqlx::Type, Debug)]
-enum Tool {
-    Rust,
+#[derive(Debug)]
+struct Tool {
+    name: String,
+    link: String,
 }
 
 #[derive(Template)]

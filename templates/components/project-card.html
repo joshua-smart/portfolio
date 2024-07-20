@@ -1,14 +1,29 @@
-<div class="p-2 bg-zinc-800 rounded size-60 flex-none">
+{% macro render_tool(tool) %}
+<a href="{{ tool.link }}" target="_blank" title="{{ tool.name }}" class="hover:scale-125 transition-transform">
+  {% match tool.name.as_str() %}
+  {% when "rust" %}
+  <i class="nf nf-dev-rust text-orange-500"></i>
+  {% when "html" %}
+  <i class="nf nf-dev-html5 text-[#e34c26]"></i>
+  {% when "css" %}
+  <i class="nf nf-dev-css3 text-[#264de4]"></i>
+  {% when "tailwindcss" %}
+  <i class="nf nf-md-tailwind text-[#38bdf8]"></i>
+  {% else %}
+  <i class="nf nf-md-package_variant_closed"></i>
+  {% endmatch%}
+</a>
+{% endmacro %}
+
+<div class="p-2 bg-zinc-800 rounded size-60 flex-none flex flex-col snap-start">
   <div class="font-mono">
     <span class="text-zinc-500">#{{ id }}</span>
     <span class="font-semibold">{{ name }}</span>
   </div>
-  [
-  {% for tool in tools %}
-  {% match tool %}
-  {% when Rust %}
-  <i class="nf nf-dev-rust"></i>
-  {% endmatch%}
-  {% endfor %}
-  ]
+  <div class="flex-1"></div>
+  <div class="flex gap-4 justify-between text-lg px-1">
+    {% for tool in tools %}
+    {% call render_tool(tool) %}
+    {% endfor %}
+  </div>
 </div>

@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS projects (
 
 CREATE TABLE IF NOT EXISTS tools (
     id INTEGER primary key not null,
-    name TEXT not null
+    name TEXT not null,
+    link TEXT not null
 );
 
 CREATE TABLE IF NOT EXISTS project_tools (
