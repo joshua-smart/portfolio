@@ -39,6 +39,7 @@
               path: type:
               (lib.path.hasPrefix ./templates (/. + path))
               || (lib.path.hasPrefix ./.sqlx (/. + path))
+              || (lib.path.hasPrefix ./migrations (/. + path))
               || (craneLib.filterCargoSources path type);
           };
         };
