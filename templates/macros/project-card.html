@@ -15,10 +15,26 @@
 </a>
 {% endmacro %}
 
+{% macro render_source(source) %}
+<a href="{{ source.link }}" target="_blank">
+  {% match source.type.as_str() %}
+  {% when "github" %}
+  <i class="nf nf-fa-github"></i>
+  {% else %}
+  {% endmatch %}
+</a>
+{% endmacro %}
+
+
+{% macro render(id, name, tools, source) %}
+
 <div class="p-2 bg-zinc-800 rounded size-60 flex-none flex flex-col snap-start">
-  <div class="font-mono">
-    <span class="text-zinc-500">#{{ id }}</span>
-    <span class="font-semibold">{{ name }}</span>
+  <div class="font-mono flex justify-between">
+    <div>
+      <span class="text-zinc-500">#{{ id }}</span>
+      <span class="font-semibold">{{ name }}</span>
+    </div>
+    {% call render_source(source) %}
   </div>
   <div class="flex-1"></div>
   <div class="flex gap-4 justify-between text-lg px-1">
@@ -27,3 +43,5 @@
     {% endfor %}
   </div>
 </div>
+
+{% endmacro %}

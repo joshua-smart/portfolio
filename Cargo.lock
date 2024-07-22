@@ -1171,7 +1171,6 @@ dependencies = [
  "axum",
  "clap",
  "futures",
- "rand",
  "sqlx",
  "tokio",
  "tower-http",

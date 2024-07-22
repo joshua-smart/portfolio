@@ -44,22 +44,19 @@
           };
         };
 
-        styles = pkgs.stdenv.mkDerivation {
-          pname = "portfolio-styles";
+        assets = pkgs.stdenv.mkDerivation {
+          name = "portfolio-assets";
           src = ./.;
           buildInputs = with pkgs; [ tailwindcss ];
           buildPhase = ''
             tailwindcss -i ./templates/input.css -o main.css -m
           '';
           installPhase = ''
+            mkdir -p $out/assets/
+            cp -r assets/* $out/assets/
             mkdir -p $out/assets/css/
             mv main.css $out/assets/css/
           '';
-        };
-
-        app = pkgs.lib.fileset.toSource {
-          root = ./.;
-          fileset = ./assets;
         };
 
         dockerImage = pkgs.dockerTools.buildImage {
@@ -69,8 +66,7 @@
             name = "portfolio";
             paths = [
               bin
-              app
-              styles
+              assets
             ];
             pathsToLink = [
               "/bin"
@@ -85,14 +81,16 @@
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            rust-bin.stable.latest.default
+            # Language Servers
             rust-analyzer
             rustfmt
-            cargo-watch
             vscode-langservers-extracted
             tailwindcss-language-server
             nodePackages.typescript-language-server
             taplo
+
+            rust-bin.stable.latest.default
+            cargo-watch
             sqlx-cli
             sqlite
             (pkgs.writeShellScriptBin "tailwindcss" ''

@@ -27,23 +27,33 @@ pub async fn get(State(state): State<AppState>) -> Result<impl IntoResponse, Sta
         }
     };
 
-    let projects: Vec<_> = query!(r#"SELECT id as "id: u32", name FROM projects"#)
-        .fetch(&db)
-        .and_then(|r| async move {
-            let tools = get_tools(r.id).await?;
+    let projects: Vec<_> = query!(
+        r#"
+        SELECT projects.id as "id: u32", name, type, link 
+        FROM projects
+        INNER JOIN sources ON projects.source_id = sources.id
+        "#
+    )
+    .fetch(&db)
+    .and_then(|r| async move {
+        let tools = get_tools(r.id).await?;
 
-            Ok(Project {
-                id: r.id,
-                name: r.name,
-                tools,
-            })
+        Ok(Project {
+            id: r.id,
+            name: r.name,
+            tools,
+            source: Source {
+                r#type: r.r#type,
+                link: r.link,
+            },
         })
-        .try_collect()
-        .await
-        .map_err(|e| {
-            error!(info = ?e, "Error retrieving projects from database");
-            StatusCode::INTERNAL_SERVER_ERROR
-        })?;
+    })
+    .try_collect()
+    .await
+    .map_err(|e| {
+        error!(info = ?e, "Error retrieving projects from database");
+        StatusCode::INTERNAL_SERVER_ERROR
+    })?;
 
     Ok(ProjectCardsTemplate { projects })
 }
@@ -53,11 +63,18 @@ struct Project {
     id: u32,
     name: String,
     tools: Vec<Tool>,
+    source: Source,
 }
 
 #[derive(Debug)]
 struct Tool {
     name: String,
+    link: String,
+}
+
+#[derive(Debug)]
+struct Source {
+    r#type: String,
     link: String,
 }
 
