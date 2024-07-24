@@ -25,3 +25,6 @@ INSERT INTO project_tools VALUES
 INSERT INTO sources VALUES
 (0, 'github', 'https://github.com/joshua-smart/portfolio'),
 (1, 'github', 'a-different-thing');
+
+INSERT INTO blogs VALUES
+(0, 'title-to-a-page', '## Heading 2' || X'0A' || 'Some sample text' || X'0A' || '- List item 1' || X'0A' || '- **List** item 2', '2024-07-24 23:56:15.000');

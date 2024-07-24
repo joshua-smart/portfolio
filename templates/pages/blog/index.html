@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} Blog {% endblock %}
+
+{% block content %}
+<main class="flex flex-col bg-zinc-900 dark:text-white h-screen">
+  {% include "components/hero.html" %}
+  <hr>
+  <div class="flex-1">
+    {{ "# [Blog](http://google.com)"|markdown }}
+  </div>
+</main>
+
+{% endblock %}

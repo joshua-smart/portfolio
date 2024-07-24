@@ -20,8 +20,8 @@
   {% endfor %}
 
   <nav class="flex justify-around mt-[1em]">
-    {% for l in ["projects", "contact", "cv"] %}
-    <a href="#{{ l }}">{{ l }}</a>
+    {% for (name, link) in [("projects", "#projects"), ("contact", "#contact"), ("cv", "/cv"), ("blog", "/blog")] %}
+    <a href="{{ link }}">{{ name }}</a>
     {% endfor %}
   </nav>
 </div>

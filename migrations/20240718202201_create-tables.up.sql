@@ -21,3 +21,10 @@ CREATE TABLE IF NOT EXISTS sources (
     type TEXT not null,
     link TEXT not null
 );
+
+CREATE TABLE IF NOT EXISTS blogs (
+    id INTEGER primary key not null,
+    title TEXT not null,
+    content TEXT not null,
+    written TEXT not null
+);

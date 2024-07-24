@@ -9,6 +9,7 @@ use tracing::info;
 use crate::args::Args;
 
 mod args;
+mod blog;
 mod index;
 mod partials;
 
@@ -40,6 +41,7 @@ async fn main() -> Result<()> {
     let app = Router::<AppState>::new()
         .route("/", get(index::get))
         .nest("/partials", partials::router())
+        .nest("/blog", blog::router())
         .with_state(state)
         .nest_service("/assets", ServeDir::new(asset_dir)) // Serve static assets
         .layer(TraceLayer::new_for_http());

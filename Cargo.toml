@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.86"
-askama = { version = "0.12.1", features = ["with-axum"] }
+askama = { version = "0.12.1", features = ["with-axum", "markdown"] }
 askama_axum = "0.4.0"
 axum = "0.7.5"
 clap = { version = "4.5.9", features = ["derive", "env"] }

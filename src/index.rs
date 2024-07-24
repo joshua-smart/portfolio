@@ -5,5 +5,5 @@ pub async fn get() -> impl IntoResponse {
 }
 
 #[derive(Template)]
-#[template(path = "index.html")]
+#[template(path = "pages/index.html")]
 struct IndexTemplate;
