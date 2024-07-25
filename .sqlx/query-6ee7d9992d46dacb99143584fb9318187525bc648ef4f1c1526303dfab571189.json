@@ -1,6 +1,6 @@
 {
   "db_name": "SQLite",
-  "query": "\n        SELECT id as \"id: u32\", content, written\n        FROM blogs \n        WHERE title=?",
+  "query": "\n        SELECT id as \"id: u32\", title, content, written\n        FROM posts \n        WHERE id=?",
   "describe": {
     "columns": [
       {
@@ -9,13 +9,18 @@
         "type_info": "Int64"
       },
       {
-        "name": "content",
+        "name": "title",
         "ordinal": 1,
         "type_info": "Text"
       },
       {
-        "name": "written",
+        "name": "content",
         "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "written",
+        "ordinal": 3,
         "type_info": "Text"
       }
     ],
@@ -25,8 +30,9 @@
     "nullable": [
       false,
       false,
+      false,
       false
     ]
   },
-  "hash": "3381240fcb526eacc7e01b2a085d7c4a95ba08038d7a19d80abc12d3411775b6"
+  "hash": "6ee7d9992d46dacb99143584fb9318187525bc648ef4f1c1526303dfab571189"
 }
