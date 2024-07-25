@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS sources (
     link TEXT not null
 );
 
-CREATE TABLE IF NOT EXISTS blogs (
+CREATE TABLE IF NOT EXISTS posts (
     id INTEGER primary key not null,
     title TEXT not null,
     content TEXT not null,

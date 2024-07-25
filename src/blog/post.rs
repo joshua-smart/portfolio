@@ -4,23 +4,24 @@ use axum::{
     extract::{Path, State},
     http::StatusCode,
 };
-use sqlx::query;
+use sqlx::query_as;
 use tracing::error;
 
 use crate::AppState;
 
 pub async fn get(
     State(state): State<AppState>,
-    Path(page): Path<String>,
+    Path(id): Path<u32>,
 ) -> Result<impl IntoResponse, StatusCode> {
     let db = state.db;
 
-    let page_data = query!(
+    let post = query_as!(
+        PostTemplate,
         r#"
-        SELECT id as "id: u32", content, written
-        FROM blogs 
-        WHERE title=?"#,
-        page,
+        SELECT id as "id: u32", title, content, written
+        FROM posts 
+        WHERE id=?"#,
+        id,
     )
     .fetch_one(&db)
     .await
@@ -29,19 +30,12 @@ pub async fn get(
         StatusCode::INTERNAL_SERVER_ERROR
     })?;
 
-    let page = PageTemplate {
-        id: page_data.id,
-        title: page,
-        content: page_data.content,
-        written: page_data.written,
-    };
-
-    Ok(page)
+    Ok(post)
 }
 
 #[derive(Template)]
-#[template(path = "pages/blog/page.html")]
-struct PageTemplate {
+#[template(path = "pages/blog/post.html")]
+struct PostTemplate {
     id: u32,
     title: String,
     content: String,

@@ -18,10 +18,4 @@
   {% for (t, w) in [(2, 6), (0, 10)] %}
   <div class="{{ fakeLineClasses }}" style="width: 0; margin-left: {{t}}ch;" data-length="{{w}}"></div>
   {% endfor %}
-
-  <nav class="flex justify-around mt-[1em]">
-    {% for (name, link) in [("projects", "#projects"), ("contact", "#contact"), ("cv", "/cv"), ("blog", "/blog")] %}
-    <a href="{{ link }}">{{ name }}</a>
-    {% endfor %}
-  </nav>
 </div>

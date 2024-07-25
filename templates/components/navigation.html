@@ -1,0 +1,5 @@
+<nav class="flex justify-around m-1">
+  {% for (name, link) in [("projects", "/#projects"), ("contact", "/#contact"), ("cv", "/cv"), ("blog", "/blog")] %}
+  <a href="{{ link }}">{{ name }}</a>
+  {% endfor %}
+</nav>
