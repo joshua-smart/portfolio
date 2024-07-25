@@ -11,6 +11,7 @@ use crate::args::Args;
 mod args;
 mod blog;
 mod index;
+mod not_found;
 mod partials;
 
 #[derive(Clone)]
@@ -43,6 +44,7 @@ async fn main() -> Result<()> {
         .nest("/partials", partials::router())
         .nest("/blog", blog::router())
         .with_state(state)
+        .fallback(not_found::get)
         .nest_service("/assets", ServeDir::new(asset_dir)) // Serve static assets
         .layer(TraceLayer::new_for_http());
 
