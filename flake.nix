@@ -138,7 +138,7 @@
             };
           };
         };
-      overlay = final: prev: { portfolio = self.packages.${builtins.currentSystem}.default; };
+      overlay = final: prev: { portfolio = self.packages.x86_64-linux.default; };
       overlays.default = self.overlay;
     };
 }
