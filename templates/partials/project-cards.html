@@ -1,8 +1,7 @@
 {% import "macros/project-card.html" as project_card %}
 
-<div class="flex gap-2 overflow-x-auto snap-x snap-mandatory" data-h-scroll>
-  <script src="assets/js/horizontalScroll.js"></script>
-  {% for Project { id, name, tools, source } in projects %}
-  {% call project_card::render(id, name, tools, source) %}
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-stretch">
+  {% for (id, Project { name, description, source }) in projects %}
+  {% call project_card::render(id, name, description, source) %}
   {% endfor %}
 </div>

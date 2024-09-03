@@ -1,6 +1,6 @@
 {
   "db_name": "SQLite",
-  "query": "\n        SELECT projects.id as \"id: u32\", name, type, link \n        FROM projects\n        INNER JOIN sources ON projects.source_id = sources.id\n        ",
+  "query": "\n        SELECT projects.id as \"id: u32\", name, description, type, link \n        FROM projects\n        INNER JOIN sources ON projects.source_id = sources.id\n        ",
   "describe": {
     "columns": [
       {
@@ -14,13 +14,18 @@
         "type_info": "Text"
       },
       {
-        "name": "type",
+        "name": "description",
         "ordinal": 2,
         "type_info": "Text"
       },
       {
-        "name": "link",
+        "name": "type",
         "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "link",
+        "ordinal": 4,
         "type_info": "Text"
       }
     ],
@@ -31,8 +36,9 @@
       false,
       false,
       false,
+      false,
       false
     ]
   },
-  "hash": "032137e60ba20be64e0580052b13dc6f1413821598078ae4fb1102d8ccf4a29e"
+  "hash": "eb4be03d77df2b21e72aa90c3c2951cda555552c46659ff7c056ac99829cf689"
 }

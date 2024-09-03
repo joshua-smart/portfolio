@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "components/header.html" %}
+<div class="container mx-auto flex flex-col px-6">
+  {% block page_content %}<p>Placeholder page content</p>{% endblock %}
+</div>
+{% endblock %}

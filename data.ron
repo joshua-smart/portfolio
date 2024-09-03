@@ -1,0 +1,55 @@
+(
+  projects: {
+    0: (
+      name: "portfolio", 
+      description: "A personal portfolio site and blog. Built in [Rust](https://www.rust-lang.org) using the [Axum](https://github.com/tokio-rs/axum) web framework, [Askama](https://github.com/djc/askama) HTML templating, and [Tailwind](https://tailwindcss.com/) CSS styles.",
+      source: GitHub( link: "https://github.com/joshua-smart/portfolio" ),
+    ),
+    1: (
+      name: "nixos",
+      description: "Personal [NixOS](https://nixos.org) and [home-manager](https://github.com/nix-community/home-manager) configurations, a declarative model for reliable and reproducible environments.",
+      source: GitHub( link: "https://github.com/joshua-smart/nixos" ),
+    ),
+    2: (
+      name: "nix-homelab",
+      description: "Homelab configuration built and deployed using [NixOS](https://nixos.org), hosting a variety of services such as [paperless-ngx](https://docs.paperless-ngx.com) and [wireguard](https://www.wireguard.com).",
+      source: GitHub( link: "https://github.com/joshua-smart/nix-homelab" ),
+    ),
+    3: (
+      name: "sales-report-generator",
+      description: "Tool to extract and collate sales of a small business from a POS system.",
+      source: GitHub( link: "https://github.com/joshua-smart/sales-report-generator" ),
+    ),
+  },
+
+  events: {
+    0: (
+      date: "December 2021", 
+      description: "First commercial software project, a tool to extract and collate sales of a small business from a POS system."
+    ),
+    1: (
+      date: "June 2022", 
+      description: "A\\*A\\*A\\* in Computer Science, Mathematics, and Further Maths A-Levels"
+    ),
+    2: (
+      date: "July 2022", 
+      description: "Internship at [Beran Instruments Ltd](https://www.cmtg.com/beran) working in [TypeScript](https://www.typescriptlang.org/), [React](https://react.dev/), [C++](https://isocpp.org/), and [C#](https://learn.microsoft.com/en-us/dotnet/csharp/)."
+    ),
+    3: (
+      date: "September 2022", 
+      description: "Began studying [Software Engineering MEng](https://www.southampton.ac.uk/courses/software-engineering-degree-meng) at the [University of Southampton](https://www.southampton.ac.uk/)."
+    ),
+    4: (
+      date: "March 2023", 
+      description: "Created JSmart Software Development Ltd to facilitate contract work."
+    ),
+    5: (
+      date: "June 2023", 
+      description: "Continued work with [Beran Instruments Ltd](https://www.cmtg.com/beran) in a contractor position, working in [TypeScript](https://www.typescriptlang.org/), [React](https://react.dev/), and [Rust](https://www.rust-lang.org/)."
+    ),
+    6: (
+      date: "September 2024", 
+      description: "Awarded the [netcraft](https://www.netcraft.com/) prize for top performance in Computer Science at the [University of Southampton](https://www.southampton.ac.uk/)."
+    ),
+  },
+)

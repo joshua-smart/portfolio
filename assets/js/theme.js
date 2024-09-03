@@ -13,3 +13,5 @@ function setColorSchemePreference(preference) {
 function unsetColorSchemePreference() {
   localStorage.removeItem('theme');
 }
+
+window.addEventListener('load', () => applyColorSchemePreference());

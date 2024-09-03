@@ -4,14 +4,20 @@ use axum::{extract::State, http::StatusCode, Router};
 use sqlx::query_as;
 use tracing::error;
 
+use crate::filters;
 use crate::AppState;
 
+mod edit;
 mod post;
 
 pub fn router() -> Router<AppState> {
     Router::new()
         .route("/", axum::routing::get(get))
         .route("/:post", axum::routing::get(post::get))
+        .route(
+            "/:post/edit",
+            axum::routing::get(edit::get).post(edit::post),
+        )
 }
 
 async fn get(State(state): State<AppState>) -> Result<impl IntoResponse, StatusCode> {

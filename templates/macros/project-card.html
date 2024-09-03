@@ -1,46 +1,26 @@
-{% macro render_tool(tool) %}
-<a href="{{ tool.link }}" target="_blank" title="{{ tool.name }}" class="hover:scale-125 transition-transform">
-  {% match tool.name.as_str() %}
-  {% when "rust" %}
-  <i class="nf nf-dev-rust text-orange-500"></i>
-  {% when "html" %}
-  <i class="nf nf-dev-html5 text-[#e34c26]"></i>
-  {% when "css" %}
-  <i class="nf nf-dev-css3 text-[#264de4]"></i>
-  {% when "tailwindcss" %}
-  <i class="nf nf-md-tailwind text-[#38bdf8]"></i>
-  {% else %}
-  <i class="nf nf-md-package_variant_closed"></i>
-  {% endmatch%}
-</a>
-{% endmacro %}
-
 {% macro render_source(source) %}
-<a href="{{ source.link }}" target="_blank">
-  {% match source.type.as_str() %}
-  {% when "github" %}
-  <i class="nf nf-fa-github"></i>
-  {% else %}
-  {% endmatch %}
+{% match source %}
+{% when Source::GitHub with { link } %}
+<a href="{{ link }}" target="_blank">
+  <i class="nf nf-fa-github text-2xl m-2"></i>
 </a>
+{% else %}
+{% endmatch %}
 {% endmacro %}
 
 
-{% macro render(id, name, tools, source) %}
+{% macro render(i, name, description, source) %}
 
-<div class="p-2 bg-zinc-800 rounded size-60 flex-none flex flex-col snap-start">
-  <div class="font-mono flex justify-between">
-    <div>
-      <span class="text-zinc-500">#{{ id }}</span>
-      <span class="font-semibold">{{ name }}</span>
+<div class="p-4 rounded flex flex-col border-white border-2 gap-2">
+  <div class="flex justify-between items-center">
+    <div class="flex flex-col">
+      <span class="font-bold text-xl">{{ name }}</span>
+      <span class="text-secondary text-sm font-mono">{{ i|id }}</span>
     </div>
     {% call render_source(source) %}
   </div>
-  <div class="flex-1"></div>
-  <div class="flex gap-4 justify-between text-lg px-1">
-    {% for tool in tools %}
-    {% call render_tool(tool) %}
-    {% endfor %}
+  <div class="flex-1 project-description">
+    {{ description|markdown }}
   </div>
 </div>
 

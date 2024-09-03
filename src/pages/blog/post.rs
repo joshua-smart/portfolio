@@ -34,7 +34,7 @@ pub async fn get(
 }
 
 #[derive(Template)]
-#[template(path = "pages/blog/post.html")]
+#[template(path = "pages/blog/post/index.html")]
 struct PostTemplate {
     id: u32,
     title: String,

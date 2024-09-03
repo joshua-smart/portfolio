@@ -1,0 +1,21 @@
+{% macro logo() %}
+<span class="text-theme-purple">jsmart</span>.<span class="text-theme-blue">dev</span>
+{% endmacro %}
+
+<div class="w-full flex justify-between items-center p-6 font-mono gap-6">
+  <div class="text-3xl">
+    <span class="md:cursor-auto">&gt;</span>
+    <a href="/#hero">{% call logo() %}</a>
+  </div>
+  <div class="hidden md:flex gap-6">
+    {% for (name, link) in crate::navigation::LINKS %}
+    <a href="{{ link }}" class=""><span class="text-theme-blue">-</span> {{ name }}</a>
+    {% endfor %}
+  </div>
+  <button class="md:hidden text-2xl" data-open-nav>
+    <i class="nf nf-fa-navicon"></i>
+  </button>
+</div>
+<div class="md:hidden">
+  {% include "components/navigation-pane.html" %}
+</div>

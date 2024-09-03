@@ -2,24 +2,9 @@
 CREATE TABLE IF NOT EXISTS projects (
     id INTEGER primary key not null,
     name TEXT not null,
-    source_id INTEGER not null
-);
-
-CREATE TABLE IF NOT EXISTS tools (
-    id INTEGER primary key not null,
-    name TEXT not null,
-    link TEXT not null
-);
-
-CREATE TABLE IF NOT EXISTS project_tools (
-    project_id INTEGER not null,
-    tool_id INTEGER not null
-);
-
-CREATE TABLE IF NOT EXISTS sources (
-    id INTEGER primary key not null,
-    type TEXT not null,
-    link TEXT not null
+    description TEXT not null,
+    source_type TEXT not null,
+    source_link TEXT not null
 );
 
 CREATE TABLE IF NOT EXISTS posts (
@@ -27,4 +12,10 @@ CREATE TABLE IF NOT EXISTS posts (
     title TEXT not null,
     content TEXT not null,
     written TEXT not null
+);
+
+CREATE TABLE IF NOT EXISTS events (
+    id INTEGER primary key not null,
+    timestamp TEXT not null,
+    description TEXT not null
 );

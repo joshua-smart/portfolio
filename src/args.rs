@@ -23,4 +23,12 @@ pub struct Args {
 
     #[arg(env, long, short = 'a', default_value = "0.0.0.0")]
     pub address: String,
+
+    #[arg(
+        env,
+        long,
+        default_value = "data.ron",
+        help = "Path to a file containing static data in RON format"
+    )]
+    pub data_path: PathBuf,
 }

@@ -1,21 +1,22 @@
-{% let fakeLineClasses = "fake-line bg-zinc-700 opacity-50 h-[1em] rounded" %}
-
-<script src="assets/js/hero.js"></script>
-<div id="hero" class="font-mono p-4 flex flex-col gap-1 py-6">
-  {% for (t, w) in [(0, 10), (2, 12)] %}
-  <div class="{{ fakeLineClasses }}" style="width: 0; margin-left: {{t}}ch;" data-length="{{w}}"></div>
-  {% endfor %}
-
-  <a href="/">
-    <div style="font-size: 2em;" class="ml-[2ch] leading-none mt-1">Joshua</div>
-    <div style="font-size: 2em;" class="ml-[4ch] leading-none mb-1">Smart</div>
-  </a>
-
-  <div class="{{ fakeLineClasses }}" style="width: 0; margin-left: 6ch;" data-length="7"></div>
-
-  <div class="text-blue-theme select-none" style="margin-left: 4ch;">Personal Portfolio</div>
-
-  {% for (t, w) in [(2, 6), (0, 10)] %}
-  <div class="{{ fakeLineClasses }}" style="width: 0; margin-left: {{t}}ch;" data-length="{{w}}"></div>
-  {% endfor %}
-</div>
+<script type="module" src="/assets/js/hero.js"></script>
+<section id="hero" class="flex flex-col justify-center min-h-screen"
+  style="background: linear-gradient(0deg, rgba(24,34,46,1) 0%, rgba(0,46,66,1) 50%, rgba(24,34,46,1) 100%);">
+  <div class="absolute top-0 left-0 w-full">
+    {% include "components/header.html" %}
+  </div>
+  <div class="flex flex-col items-center gap-8">
+    <div class="font-bold font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl drop-shadow-md">JOSHUA
+      SMART</div>
+    <div class="font-mono font-semibold text-xl lg:text-2xl xl:text-3xl text-center drop-shadow-md">
+      {% let styles = "transition-colors duration-1000" %}
+      <span id="hero-subtitle-se" class="{{ styles }}">SOFTWARE ENGINEER</span>, <span id="hero-subtitle-s"
+        class="{{ styles }}">STUDENT</span>,
+      <span id="hero-subtitle-a" class="{{ styles }}">ARCHITECT</span>
+    </div>
+  </div>
+  <div class="absolute bottom-0 left-0 w-full flex justify-center [@media(max-height:375px)]:hidden">
+    <a href="#projects" class="m-10 animate-bounce">
+      <i class="nf nf-cod-arrow_circle_down text-4xl"></i>
+    </a>
+  </div>
+</section>

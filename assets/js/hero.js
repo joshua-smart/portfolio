@@ -1,12 +1,16 @@
-window.addEventListener('load', () => {
-  setTimeout(animateHero, 500);
-});
+const seText = document.querySelector('#hero-subtitle-se');
+const sText = document.querySelector('#hero-subtitle-s');
+const aText = document.querySelector('#hero-subtitle-a');
 
-function animateHero() {
-  document.querySelectorAll('#hero .fake-line').forEach((e, i) => {
-    let length = e.dataset.length;
+const elements = [seText, sText, aText];
+const colorClasses = ["text-theme-red", "text-theme-green", "text-theme-yellow"];
+let index = 0;
 
-    e.style.transition = `width ${length * 100}ms ease-in-out ${i * 200}ms`;
-    e.style.width = `${length}ch`;
-  });
-}
+elements[index].classList.add(colorClasses[index]);
+
+setInterval(() => {
+  elements[index].classList.remove(colorClasses[index]);
+  index = (index + 1) % elements.length;
+  elements[index].classList.add(colorClasses[index]);
+}, 3000);
+

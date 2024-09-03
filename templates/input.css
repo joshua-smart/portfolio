@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-  hr {
-    @apply bg-gradient-to-r from-transparent via-zinc-500 to-transparent border-none h-[1px];
+  h1 {
+    @apply text-3xl font-semibold mb-6;
+  }
+
+  p a {
+    @apply underline;
   }
 
   .md h1 {
@@ -21,5 +25,18 @@
 
   .md ul {
     @apply my-1 list-disc pl-8;
+  }
+}
+
+@layer components {
+  h1>a {
+    @apply font-mono text-secondary hover:text-theme-blue transition-colors
+  }
+}
+
+@layer utilities {
+  .bg-radial-gradient {
+    background: rgb(18, 92, 107);
+    background: radial-gradient(circle, rgba(18, 92, 107, 1) 0%, rgba(24, 24, 24, 1) 100%);
   }
 }

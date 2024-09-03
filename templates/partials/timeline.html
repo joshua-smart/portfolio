@@ -1,0 +1,23 @@
+{% let rows = events.len() %}
+{% let dual_rows = rows.div_ceil(2) %}
+
+{% macro timeline() %}
+{% for (i, Event { date, description }) in events %}
+<div class="flex flex-col border-l-2 border-white pl-6 py-3">
+  <div class="">
+    <span class="text-sm text-secondary font-mono">{{ i|id }}</span>&nbsp;
+    <span class="font-bold text-lg">{{ date }}</span>
+  </div>
+  <div class="mt-2">{{ description|markdown }}</div>
+</div>
+{% endfor %}
+{% endmacro %}
+
+
+<div class="md:hidden ml-4 flex flex-col gap-x-6">
+  {% call timeline() %}
+</div>
+<div class="hidden ml-4 md:grid grid-cols-2 gap-x-6 grid-flow-col"
+  style="grid-template-rows: repeat({{ dual_rows }}, minmax(0, 1fr));">
+  {% call timeline() %}
+</div>

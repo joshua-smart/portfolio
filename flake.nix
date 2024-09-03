@@ -2,7 +2,7 @@
   description = "portfolio";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.05";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -28,7 +28,7 @@
         overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs { inherit system overlays; };
 
-        craneLib = crane.mkLib pkgs;
+        craneLib = (crane.mkLib pkgs).overrideToolchain (p: p.rust-bin.stable.latest.default);
 
         lib = nixpkgs.lib;
 
@@ -80,6 +80,9 @@
       in
       {
         devShells.default = pkgs.mkShell {
+
+          inputsFrom = [ bin ];
+
           packages = with pkgs; [
             # Language Servers
             rust-analyzer
@@ -89,12 +92,11 @@
             nodePackages.typescript-language-server
             taplo
 
-            rust-bin.stable.latest.default
             cargo-watch
             sqlx-cli
             sqlite
-            (pkgs.writeShellScriptBin "tailwindcss" ''
-              ${pkgs.tailwindcss}/bin/tailwindcss --input templates/input.css --output assets/css/main.css "$@"
+            (writeShellScriptBin "tailwindcss" ''
+              ${tailwindcss}/bin/tailwindcss --input templates/input.css --output assets/css/main.css "$@"
             '')
           ];
         };

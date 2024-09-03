@@ -1,0 +1,16 @@
+{% let contacts = [
+("nf-md-email", "josh@thesmarts.co.uk", "mailto:josh@thesmarts.co.uk"),
+("nf-md-github", "joshua-smart", "https://github.com/joshua-smart"),
+("nf-md-linkedin", "Joshua Smart", "https://www.linkedin.com/in/joshua-smart-967172310")
+] %}
+
+<ul class="flex flex-col gap-4 text-lg ml-2">
+  {% for (icon, text, link) in contacts %}
+  <li>
+    <a href="{{ link }}" target="_blank" class="flex gap-4 items-center">
+      <i class="text-xl nf {{ icon }}"></i>
+      <span class="font-mono underline">{{ text }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>

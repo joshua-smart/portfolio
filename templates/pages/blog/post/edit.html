@@ -1,0 +1,17 @@
+{% extends "page.html" %}
+
+{% block title %} Portfolio {% endblock %}
+
+{% block page_content %}
+<div class="p-2 mb-4">
+  <div class="text-2xl">
+    <span class="text-zinc-500">#{{ id }}</span>
+    <span>{{ title }}</span>
+  </div>
+  <div class="text-sm text-zinc-500">{{ written }}</div>
+</div>
+<form class="flex flex-col" hx-post="/blog/{{ id }}/edit">
+  <textarea class="bg-zinc-700 font-mono p-2" name="content" rows="10">{{ content }}</textarea>
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}

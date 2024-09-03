@@ -1,0 +1,16 @@
+{% extends "page.html" %}
+
+{% block title %} Portfolio {% endblock %}
+
+{% block page_content %}
+<div class="p-2">
+  <div class="text-2xl">
+    <span class="text-zinc-500">#{{ id }}</span>
+    <span>{{ title }}</span>
+  </div>
+  <div class="text-sm text-zinc-500">{{ written }}</div>
+</div>
+<div class="md p-2">{{ content|markdown }}</div>
+</main>
+
+{% endblock %}

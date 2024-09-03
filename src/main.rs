@@ -1,6 +1,9 @@
+use std::sync::Arc;
+
 use anyhow::Result;
-use axum::{routing::get, Router};
+use axum::Router;
 use clap::Parser;
+use data::Data;
 use sqlx::{migrate, SqlitePool};
 use tokio::net::TcpListener;
 use tower_http::{services::ServeDir, trace::TraceLayer};
@@ -9,13 +12,16 @@ use tracing::info;
 use crate::args::Args;
 
 mod args;
-mod blog;
-mod index;
+mod data;
+mod filters;
+mod navigation;
 mod not_found;
+mod pages;
 mod partials;
 
 #[derive(Clone)]
 struct AppState {
+    data: Arc<Data>,
     db: SqlitePool,
 }
 
@@ -27,6 +33,7 @@ async fn main() -> Result<()> {
         asset_dir,
         port,
         address,
+        data_path,
     } = Args::parse();
 
     tracing_subscriber::fmt()
@@ -34,17 +41,22 @@ async fn main() -> Result<()> {
         .compact()
         .init();
 
+    let data_file_contents = tokio::fs::read_to_string(data_path).await?;
+    let data = ron::from_str::<data::Data>(&data_file_contents)?;
+
     let pool = SqlitePool::connect(&database_url).await?;
     migrate!().run(&pool).await?;
 
-    let state = AppState { db: pool };
+    let state = AppState {
+        db: pool,
+        data: Arc::new(data),
+    };
 
     let app = Router::<AppState>::new()
-        .route("/", get(index::get))
         .nest("/partials", partials::router())
-        .nest("/blog", blog::router())
-        .with_state(state)
+        .nest("/", pages::router())
         .fallback(not_found::get)
+        .with_state(state)
         .nest_service("/assets", ServeDir::new(asset_dir)) // Serve static assets
         .layer(TraceLayer::new_for_http());
 

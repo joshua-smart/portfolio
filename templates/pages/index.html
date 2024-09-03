@@ -2,9 +2,27 @@
 
 {% block title %} Portfolio {% endblock %}
 
+{% macro heading(id, text) %}
+<h1>
+  <a href="#{{ id }}">#</a>
+  {{ text }}
+</h1>
+{% endmacro %}
+
 {% block content %}
 {% include "components/hero.html" %}
-<div class="flex-1">
-  {% include "sections/projects.html" %}
+<div class="flex flex-col gap-16 px-6 container mx-auto pb-12">
+  <section id="projects">
+    {% call heading("projects", "Projects") %}
+    <div hx-trigger="load" hx-get="/partials/project-cards" hx-swap="outerHTML"></div>
+  </section>
+  <section id="experience">
+    {% call heading("experience", "Experience") %}
+    <div hx-trigger="load" hx-get="/partials/timeline" hx-swap="outerHTML"></div>
+  </section>
+  <section id="contact">
+    {% call heading("contact", "Contact") %}
+    {% include "components/contact.html" %}
+  </section>
 </div>
 {% endblock %}
