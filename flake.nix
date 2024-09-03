@@ -121,8 +121,6 @@
             networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
             systemd.services.portfolio = {
-              enable = true;
-
               description = "Personal portfolio website.";
               serviceConfig = {
                 ExecStart = "${pkgs.portfolio}/bin/portfolio ${args}";
