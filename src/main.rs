@@ -1,10 +1,9 @@
 use std::sync::Arc;
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 use axum::Router;
 use clap::Parser;
 use data::Data;
-use sqlx::{migrate, SqlitePool};
 use tokio::net::TcpListener;
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing::info;
@@ -22,14 +21,12 @@ mod partials;
 #[derive(Clone)]
 struct AppState {
     data: Arc<Data>,
-    db: SqlitePool,
 }
 
 #[tokio::main]
 async fn main() -> Result<()> {
     let Args {
         log_level,
-        database_url,
         asset_dir,
         port,
         address,
@@ -41,14 +38,13 @@ async fn main() -> Result<()> {
         .compact()
         .init();
 
-    let data_file_contents = tokio::fs::read_to_string(data_path).await?;
-    let data = ron::from_str::<data::Data>(&data_file_contents)?;
-
-    let pool = SqlitePool::connect(&database_url).await?;
-    migrate!().run(&pool).await?;
+    info!(path = ?data_path, "Reading data");
+    let data_file_contents = tokio::fs::read_to_string(data_path)
+        .await
+        .context("Failed to read data")?;
+    let data = ron::from_str::<data::Data>(&data_file_contents).context("Failed to parse data")?;
 
     let state = AppState {
-        db: pool,
         data: Arc::new(data),
     };
 

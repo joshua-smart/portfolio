@@ -15,9 +15,6 @@ pub struct Args {
     )]
     pub asset_dir: PathBuf,
 
-    #[arg(env, long, short = 'd', default_value = "sqlite::memory:")]
-    pub database_url: String,
-
     #[arg(env, long, short = 'p', default_value = "3000")]
     pub port: u16,
 
@@ -27,6 +24,7 @@ pub struct Args {
     #[arg(
         env,
         long,
+        short = 'd',
         default_value = "data.ron",
         help = "Path to a file containing static data in RON format"
     )]
