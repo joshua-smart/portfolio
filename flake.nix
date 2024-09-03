@@ -30,22 +30,10 @@
 
         craneLib = (crane.mkLib pkgs).overrideToolchain (p: p.rust-bin.stable.latest.default);
 
-        lib = nixpkgs.lib;
+        bin = craneLib.buildPackage { src = ./.; };
 
-        bin = craneLib.buildPackage {
-          src = pkgs.lib.cleanSourceWith {
-            src = ./.;
-            filter =
-              path: type:
-              (lib.path.hasPrefix ./templates (/. + path))
-              || (lib.path.hasPrefix ./.sqlx (/. + path))
-              || (lib.path.hasPrefix ./migrations (/. + path))
-              || (craneLib.filterCargoSources path type);
-          };
-        };
-
-        assets = pkgs.stdenv.mkDerivation {
-          name = "portfolio-assets";
+        portfolio = pkgs.stdenv.mkDerivation {
+          name = "portfolio";
           src = ./.;
           buildInputs = with pkgs; [ tailwindcss ];
           buildPhase = ''
@@ -54,33 +42,13 @@
           installPhase = ''
             mkdir -p $out/assets/
             cp -r assets/* $out/assets/
-            mkdir -p $out/assets/css/
-            mv main.css $out/assets/css/
+            install -D main.css $out/assets/css/main.css
+            install -D  ${bin}/bin/portfolio $out/bin/portfolio
           '';
-        };
-
-        dockerImage = pkgs.dockerTools.buildImage {
-          name = "portfolio";
-          tag = "dev";
-          copyToRoot = pkgs.buildEnv {
-            name = "portfolio";
-            paths = [
-              bin
-              assets
-            ];
-            pathsToLink = [
-              "/bin"
-              "/assets"
-            ];
-          };
-          config = {
-            Cmd = [ "${bin}/bin/portfolio" ];
-          };
         };
       in
       {
         devShells.default = pkgs.mkShell {
-
           inputsFrom = [ bin ];
 
           packages = with pkgs; [
@@ -102,8 +70,8 @@
         };
 
         packages = {
-          inherit bin dockerImage;
-          default = bin;
+          inherit portfolio;
+          default = portfolio;
         };
       }
     );
