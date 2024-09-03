@@ -75,8 +75,6 @@
           default = portfolio;
         };
 
-        overlay = final: prev: { inherit portfolio; };
-        overlays.default = self.overlay;
       }
     )
     // {
@@ -140,5 +138,7 @@
             };
           };
         };
+      overlay = final: prev: { portfolio = self.packages.${builtins.currentSystem}.default; };
+      overlays.default = self.overlay;
     };
 }
