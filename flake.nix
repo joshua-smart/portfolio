@@ -12,7 +12,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       flake-utils,
       rust-overlay,
@@ -54,11 +53,5 @@
         };
 
       }
-    )
-    // {
-      nixosModules.default = ./module.nix;
-
-      overlay = final: prev: { portfolio = self.packages.x86_64-linux.default; };
-      overlays.default = self.overlay;
-    };
+    );
 }
