@@ -1,6 +1,6 @@
 A personal portfolio site and blog. Built in Rust using the Axum web framework, Askama HTML templating, and Tailwind CSS styles.
 
-![Portfolio screenshot](https://github.com/joshua-smart/portfolio/screenshot.png)
+![Portfolio screenshot](https://raw.githubusercontent.com/joshua-smart/portfolio/refs/heads/main/screenshot.png)
 
 # Building
 
