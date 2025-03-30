@@ -8,7 +8,8 @@ let
 
     src = ./.;
 
-    cargoHash = "sha256-LLDl61IIE3Eeg4fUuRHn92iphZN7ELzlhlXh6AEJors=";
+    cargoHash = "sha256-S/EaX4BPZGCSE2F6cbBM/xRrA6XXyXq5U8ii2yEKyLQ=";
+    useFetchCargoVendor = true;
   };
 in
 pkgs.stdenvNoCC.mkDerivation {
