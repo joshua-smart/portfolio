@@ -25,6 +25,7 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     mkdir -p $out/assets/
     cp -r assets/* $out/assets/
+    install -D data.ron $out/data.ron
     install -D main.css $out/assets/css/main.css
     install -D  ${bin}/bin/portfolio $out/bin/portfolio
   '';
