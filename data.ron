@@ -23,7 +23,7 @@
     4: (
       name: "vehicle",
       description: "A toolkit for enforcing logical specifications on neural networks.",
-      source GitHub( link: "https://github.com/vehicle-lang/vehicle" ),
+      source: GitHub( link: "https://github.com/vehicle-lang/vehicle" ),
     ),
   },
 
