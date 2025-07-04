@@ -22,7 +22,7 @@
     ),
     4: (
       name: "vehicle",
-      description: "A toolkit for enforcing logical specifications on neural networks.",
+      description: "A toolkit for enforcing logical specifications on neural networks. Topic of my [undergraduate dissertation](./assets/Implementation%20of%20a%20Rocq%20Backend%20to%20the%20Vehicle%20Neural%20Network%20Specification%20Language.pdf).",
       source: GitHub( link: "https://github.com/vehicle-lang/vehicle" ),
     ),
   },
@@ -58,7 +58,7 @@
     ),
     7: (
       date: "April 2025",
-      description: "Completed undergraduate dissertation working with the [Vehicle](https://github.com/vehicle-lang/vehicle) project and [Rocq](https://rocq-prover.org/) theorem prover."
+      description: "Completed undergraduate dissertation working with the [Vehicle](https://github.com/vehicle-lang/vehicle) project and [Rocq](https://rocq-prover.org/) theorem prover. Click **[here](./assets/Implementation%20of%20a%20Rocq%20Backend%20to%20the%20Vehicle%20Neural%20Network%20Specification%20Language.pdf)** to view."
     ),
     8: (
       date: "May 2025",
