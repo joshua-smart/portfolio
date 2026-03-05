@@ -25,6 +25,11 @@
       description: "A toolkit for enforcing logical specifications on neural networks. Topic of my [undergraduate dissertation](./assets/Implementation%20of%20a%20Rocq%20Backend%20to%20the%20Vehicle%20Neural%20Network%20Specification%20Language.pdf).",
       source: GitHub( link: "https://github.com/vehicle-lang/vehicle" ),
     ),
+    5: (
+      name: "resume",
+      description: "Personal CV written using the typst typesetting language.",
+      source: GitHub( link: "https://github.com/joshua-smart/resume" ),
+    ),
   },
 
   events: {
