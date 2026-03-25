@@ -50,7 +50,7 @@ async fn main() -> Result<()> {
 
     let app = Router::<AppState>::new()
         .nest("/partials", partials::router())
-        .nest("/", pages::router())
+        .nest("/", pages::router(&asset_dir))
         .fallback(not_found::get)
         .with_state(state)
         .nest_service("/assets", ServeDir::new(asset_dir)) // Serve static assets
