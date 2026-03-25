@@ -1,4 +1,5 @@
-use axum::{routing::get, Router};
+use axum::{response::Redirect, routing::get, Router};
+use tower_http::services::ServeFile;
 
 use crate::AppState;
 
@@ -8,7 +9,8 @@ mod index;
 pub fn router() -> Router<AppState> {
     Router::new()
         .route("/", get(index::get))
-        .route("/cv", get(cv::get))
+        .route_service("/resume", ServeFile::new("./assets/CV-Joshua-Smart.pdf"))
+        .route("/cv", get(|| async { Redirect::permanent("/resume") }))
         .route("/health", get(health))
 }
 
