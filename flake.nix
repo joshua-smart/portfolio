@@ -35,7 +35,7 @@
             rustfmt
             vscode-langservers-extracted
             tailwindcss-language-server
-            nodePackages.typescript-language-server
+            typescript-language-server
             taplo
 
             cargo-watch

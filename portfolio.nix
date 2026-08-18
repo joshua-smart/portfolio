@@ -11,7 +11,7 @@ let
 
     src = ./.;
 
-    cargoHash = "sha256-S/EaX4BPZGCSE2F6cbBM/xRrA6XXyXq5U8ii2yEKyLQ=";
+    cargoHash = "sha256-l8FDHNr49r78vx/Sgp/Q2Ds4P5iWLoeDKJ7TlWOrvSQ=";
   };
 in
 stdenvNoCC.mkDerivation {
